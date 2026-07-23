@@ -1,0 +1,623 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #0ea5e9;
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.5);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+.sb-topnav {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    padding: 0.75rem 1rem;
+    height: 70px;
+}
+
+.sb-topnav .navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary) !important;
+    letter-spacing: -0.025em;
+}
+
+.sb-sidenav {
+    background-color: var(--bg-card) !important;
+    border-right: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    border-radius: 12px;
+    margin: 4px 12px;
+    transition: all 0.2s ease;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+    color: var(--primary) !important;
+    background-color: #eff6ff !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
+    color: #ffffff !important;
+    background-image: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .sb-nav-link-icon {
+    color: inherit !important;
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+/* Cards & Content */
+.card {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    background: var(--bg-card);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    padding: 1.25rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: scale(1.02);
+}
+
+/* DataTables & Forms */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 0.75rem;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    border-color: var(--primary);
+}
+
+/* Dashboard Summary Cards */
+.card-summary {
+    border: none;
+    position: relative;
+}
+
+.card-summary .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-summary .icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Autocomplete fix */
+.ui-autocomplete {
+    z-index: 5000 !important;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+}
+
+/* ── Toggle Switch Modern (iOS style) ── */
+.toggle-estado {
+    width: 100%;
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.toggle-estado:hover {
+    border-color: var(--primary);
+    background: #f8fafc;
+}
+
+.toggle-estado .toggle-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+.toggle-estado .toggle-label i {
+    font-size: 16px;
+    color: var(--primary);
+}
+
+.toggle-estado input[type="checkbox"] {
+    position: relative;
+    width: 46px;
+    height: 24px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #cbd5e1;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-estado input:checked[type="checkbox"] {
+    background: var(--success);
+}
+
+.toggle-estado input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
+}
+
+.toggle-estado input:checked[type="checkbox"]::before {
+    left: 25px;
+}
+
+/* Custom DataTables Styling */
+div.dataTables_wrapper div.dataTables_length select {
+    width: auto;
+    display: inline-block;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4b5563;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    appearance: none;
+    margin: 0 0.5rem;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.75rem;
+    display: inline-block;
+    width: auto;
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4b5563;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+div.dataTables_wrapper div.dataTables_filter input:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.1);
+}
+
+/* Modern Export Buttons Toolbar */
+.dt-buttons {
+    margin: 1.5rem 0 !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.dt-button {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: #4a5568 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    letter-spacing: 0.01em;
+    min-width: 110px;
+}
+
+.dt-button:hover {
+    background-color: #f7fafc !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dt-button i {
+    font-size: 1.1rem;
+    margin-right: 8px;
+    transition: transform 0.2s;
+}
+
+.dt-button:hover i {
+    transform: scale(1.15);
+}
+
+/* Specific colors for icons or borders */
+.dt-button.buttons-copy { border-top: 3px solid #6366f1 !important; }
+.dt-button.buttons-excel { border-top: 3px solid #10b981 !important; }
+.dt-button.buttons-pdf { border-top: 3px solid #ef4444 !important; }
+.dt-button.buttons-print { border-top: 3px solid #f59e0b !important; }
+.dt-button.buttons-csv { border-top: 3px solid #3b82f6 !important; }
+.dt-button.buttons-colvis { border-top: 3px solid #8b5cf6 !important; }
+
+/* DataTables Search and Length refinement */
+.dataTables_length select, .dataTables_filter input {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    background-color: #f8fafc !important;
+    font-size: 0.9rem !important;
+    transition: all 0.2s;
+    outline: none !important;
+}
+
+.dataTables_length select:focus, .dataTables_filter input:focus {
+    border-color: var(--primary) !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1) !important;
+}
+
+/* Table Content Styling */
+#tblClientes thead th, #tblUsuarios thead th, #tblVehiculos thead th,
+#tblReservas thead th, #tblMarcas thead th, #tblModelos thead th,
+#tblGamas thead th, #tblTipos thead th, #tblRecepciones thead th,
+#tblPagos thead th, #tblPenalidades thead th, #t_moneda thead th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.025em;
+    padding: 1.25rem 1rem;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.table > :not(caption) > * > * {
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+:checked[type="checkbox"]::before {
+    left: 25px;
+}
+
+/* ── Modern Alerts ── */
+.alert {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-info { background-color: #e0f2fe; color: #0369a1; }
+.alert-success { background-color: #dcfce7; color: #15803d; }
+.alert-warning { background-color: #fef9c3; color: #854d0e; }
+.alert-danger { background-color: #fee2e2; color: #b91c1c; }
+
+/* ── Custom DataTables header ── */
+.dt-buttons .btn {
+    border-radius: 8px !important;
+    margin-right: 5px;
+}
+
+table.dataTable thead th {
+    background-color: #f8fafc !important;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--border-color) !important;
+    padding: 15px !important;
+}
+
+table.dataTable tbody td {
+    padding: 15px !important;
+}
+
+/* Keep critical utilities */
+.ui-autocomplete { z-index: 5000; }
+.bg-orange { background-color: #f97316; }
+.bg-purple { background-color: #a855f7; }
+
+/* Dashboard Card Utilities */
+.bg-light-primary { background-color: #eff6ff; color: #3b82f6; }
+.bg-light-success { background-color: #ecfdf5; color: #10b981; }
+.bg-light-danger { background-color: #fef2f2; color: #ef4444; }
+.bg-light-warning { background-color: #fffbeb; color: #f59e0b; }
+
+.text-primary-dark { color: #1e40af; }
+.text-success-dark { color: #065f46; }
+.text-danger-dark { color: #991b1b; }
+.text-warning-dark { color: #92400e; }
+/* ── Layout Core Adjustments ── */
+#layoutSidenav_content {
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+
+/* Extreme Left Alignment for Content */
+.container-fluid {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    max-width: 100% !important;
+}
+
+/* Header & Breadcrumb left alignment */
+.mb-4.mt-3, .card {
+    margin-left: 0 !important;
+}
+
+/* Card Body padding refinement for space efficiency */
+.card-body.p-4 {
+    padding: 1.5rem !important;
+}
+
+/* Breadcrumb / Title alignment */
+.h3.mb-0 {
+    margin-left: 0.5rem;
+}
+
+/* ── Bounce Down Modal Animation ── */
+.modal.fade .modal-dialog {
+    transform: translateY(-100px) scale(0.8);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0) scale(1);
+    animation: anim-modal-bounce 0.5s forwards;
+}
+
+.modal-content {
+    border: none !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 20px !important;
+}
+
+/* ── Elegant DataTables UI ── */
+table.dataTable thead th {
+    background: linear-gradient(180deg, #334155 0%, #1e293b 100%) !important; /* Sleek Slate Header */
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.05em;
+    padding: 1rem 0.75rem !important;
+    border: none !important;
+}
+
+table.dataTable tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #f1f5f9 !important; /* Subtle gray hover */
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* ── Premium Report Button Styling ── */
+.dt-buttons .btn.btn-outline-secondary {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.6rem 1.4rem !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dt-buttons .btn.btn-outline-secondary:hover {
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+    filter: brightness(1.1);
+}
+
+/* ── Action Buttons Enhancement ── */
+.table .btn {
+    padding: 0.4rem 0.6rem !important;
+    border-radius: 8px !important;
+    transition: all 0.2s !important;
+    font-size: 0.8rem !important;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+.table .btn:hover {
+    transform: scale(1.15) translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
+}
+
+.table .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important; }
+.table .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; }
+.table .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; }
+.table .btn-info { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important; color: white !important; }
+.table .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; color: white !important; }
+
+@keyframes anim-modal-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(20px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── DT Button Collection Styling ── */
+div.dt-button-collection {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    padding: 10px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    animation: anim-modal-bounce 0.3s forwards;
+    z-index: 2000 !important;
+}
+
+div.dt-button-collection button.dt-button {
+    background: transparent !important;
+    border: none !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    padding: 8px 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 2px !important;
+    width: 100% !important;
+    min-width: 180px !important;
+}
+
+div.dt-button-collection button.dt-button:hover {
+    background-color: #f5f3ff !important;
+    color: #6366f1 !important;
+    transform: translateX(5px) !important;
+    box-shadow: none !important;
+}
+
+/* ── Modern DataTables Expansion Control ── */
+table.dataTable td.dt-control {
+    cursor: pointer;
+    text-align: center;
+}
+
+table.dataTable td.dt-control::before {
+    content: "+" !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 22px !important;
+    height: 22px !important;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+
+table.dataTable tr.parent td.dt-control::before {
+    content: "-" !important;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3) !important;
+}
+
+table.dataTable td.dt-control:hover::before {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}

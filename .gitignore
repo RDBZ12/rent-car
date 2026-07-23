@@ -1,0 +1,23 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/vehiculos/*
+!uploads/vehiculos/.gitkeep
+
+# Temporary files
+*.log
+*.tmp
+debug_*.php
