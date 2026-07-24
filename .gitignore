@@ -16,6 +16,7 @@ Thumbs.db
 # Uploads
 uploads/vehiculos/*
 !uploads/vehiculos/.gitkeep
+!uploads/vehiculos/default.png
 
 # Temporary files
 *.log
