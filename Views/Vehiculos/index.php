@@ -194,29 +194,21 @@
 <!-- Modal Secundario para Precio -->
 <div class="modal fade" id="modalPrecio" tabindex="-1" aria-labelledby="modalPrecioLabel" aria-hidden="true" style="z-index: 1070;">
     <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 overflow-hidden" style="border-radius: 20px; border: 3px solid #3b82f6 !important; box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.85), 0 0 35px rgba(59, 130, 246, 0.6) !important;">
-            <!-- Dark Premium Header -->
-            <div class="modal-header border-0 py-3 px-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
-                <div class="d-flex align-items-center">
-                    <div class="rounded-circle bg-warning bg-opacity-20 p-2 me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                        <i class="fas fa-coins text-warning" style="font-size: 0.95rem;"></i>
-                    </div>
-                    <h6 class="modal-title fw-bold text-white mb-0" id="modalPrecioLabel" style="letter-spacing: 0.3px; font-size: 0.95rem;">Tarifa Diaria</h6>
-                </div>
-                <button type="button" class="btn-close btn-close-white shadow-none" onclick="cerrarPrecio()" aria-label="Close"></button>
+        <div class="modal-content shadow-lg" style="border: 2px solid #6c5ce7; border-radius: 12px;">
+            <div class="modal-header bg-white border-bottom-0 pb-0">
+                <h6 class="modal-title fw-bold text-dark" id="modalPrecioLabel"><i
+                        class="fas fa-dollar-sign text-primary me-2"></i>Tarifa Diaria</h6>
+                <button type="button" class="btn-close" onclick="cerrarPrecio()" aria-label="Close"></button>
             </div>
-            
-            <div class="modal-body p-4 bg-white">
-                <div class="p-3 mb-3 rounded-3" style="background-color: #eff6ff; border-left: 4px solid #2563eb;">
-                    <div class="d-flex align-items-start">
-                        <i class="fas fa-info-circle text-primary mt-1 me-2" style="font-size: 0.9rem;"></i>
-                        <span class="text-secondary small fw-semibold" style="font-size: 0.8rem; line-height: 1.35;">Esta tarifa se aplicará automáticamente en la reserva según el tipo de día.</span>
-                    </div>
+            <div class="modal-body p-3">
+                <div class="alert alert-info py-2 px-3 mb-3" role="alert" style="font-size: 0.8rem;">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Esta tarifa se aplicará automáticamente en las reservas.
                 </div>
 
                 <div class="mb-3">
-                    <label for="tipo_dia_modal" class="form-label fw-bold mb-1 text-dark small"><i class="fas fa-calendar-day text-primary me-1"></i> Tipo de Día</label>
-                    <select id="tipo_dia_modal" class="form-select shadow-none border-2 fw-semibold" style="border-color: #cbd5e1; border-radius: 10px; font-size: 0.88rem; color: #1e293b;">
+                    <label for="tipo_dia_modal" class="form-label fw-semibold mb-1 small">Tipo de Día</label>
+                    <select id="tipo_dia_modal" class="form-select form-select-sm shadow-none border-2">
                         <?php foreach ($data['tipos_dia'] as $row) { ?>
                             <option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
                         <?php } ?>
@@ -224,31 +216,26 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="temp_precio" class="form-label fw-bold mb-1 text-dark small"><i class="fas fa-tag text-success me-1"></i> Precio / Día</label>
-                    <div class="input-group">
-                        <span class="input-group-text border-2 border-end-0 fw-black text-success" style="background-color: #dcfce7; border-color: #86efac; border-top-left-radius: 10px; border-bottom-left-radius: 10px; font-size: 1.1rem;">$</span>
-                        <input id="temp_precio" class="form-control shadow-none border-2 border-start-0 ps-2 fw-bold text-dark" style="border-color: #86efac; border-top-right-radius: 10px; border-bottom-right-radius: 10px; font-size: 1.1rem;"
+                    <label for="temp_precio" class="form-label fw-semibold mb-1 small">Precio / Día</label>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-white border-2 border-end-0 text-success fw-bold">$</span>
+                        <input id="temp_precio" class="form-control shadow-none border-2 border-start-0 ps-0 fw-bold"
                             type="number" step="0.01" placeholder="0.00">
                     </div>
                 </div>
 
-                <div class="p-2 px-3 rounded-3 bg-light border mb-2 d-flex align-items-center justify-content-between">
-                    <div>
-                        <label class="form-check-label fw-bold small text-dark mb-0" for="estado_precio_modal">Precio Activo</label>
-                        <div class="text-muted" style="font-size: 0.72rem;">Habilita este precio en reservas.</div>
-                    </div>
-                    <div class="form-check form-switch m-0 p-0">
-                        <input class="form-check-input m-0" type="checkbox" id="estado_precio_modal" checked style="width: 2.2em; height: 1.1em; cursor: pointer;">
-                    </div>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="estado_precio_modal" checked>
+                    <label class="form-check-label fw-bold small ms-1" for="estado_precio_modal">Precio Activo</label>
+                    <div class="text-muted" style="font-size: 0.7rem;">Habilita este precio para reservas.</div>
                 </div>
             </div>
-
-            <div class="modal-footer border-top-0 p-4 pt-0 bg-white">
-                <button class="btn btn-primary btn-md px-4 w-100 mb-2 shadow-sm fw-bold rounded-3 py-2" type="button"
-                    onclick="aplicarPrecio()" id="btnGuardarPrecio" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: none; font-size: 0.9rem;">
+            <div class="modal-footer border-top-0 p-3 pt-0">
+                <button class="btn btn-primary btn-sm px-4 w-100 mb-2 shadow-sm fw-bold" type="button"
+                    onclick="aplicarPrecio()" id="btnGuardarPrecio">
                     <i class="fas fa-check-circle me-1"></i> Confirmar Tarifa
                 </button>
-                <button class="btn btn-outline-secondary btn-sm px-4 w-100 fw-semibold rounded-3 border-0" type="button" onclick="cerrarPrecio()" style="color: #64748b; font-size: 0.85rem;">
+                <button class="btn btn-light btn-sm px-4 w-100 fw-bold" type="button" onclick="cerrarPrecio()">
                     Cancelar
                 </button>
             </div>
