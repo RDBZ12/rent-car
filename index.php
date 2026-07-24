@@ -1,6 +1,14 @@
 <?php
 require_once 'Config/Config.php';
-$ruta = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
+if (!empty($_GET['url'])) {
+    $ruta = $_GET['url'];
+} else {
+    $requestUri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $ruta = trim($requestUri, '/');
+    if (empty($ruta)) {
+        $ruta = "Home/index";
+    }
+}
 $array = explode("/", $ruta);
 $controller = $array[0];
 $metodo = "index";
