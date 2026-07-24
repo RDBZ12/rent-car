@@ -1862,10 +1862,23 @@ function btnEditarVeh(id) {
     const url = base_url + 'Vehiculos/editar/' + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
+    http.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     http.send();
     http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
+            const rawText = (this.responseText || '').trim();
+            if (rawText.startsWith('<')) {
+                if (typeof alertas === 'function') alertas('Su sesión ha expirado. Redirigiendo...', 'warning');
+                setTimeout(function () { window.location.href = base_url; }, 1500);
+                return;
+            }
+            try {
+                const res = JSON.parse(rawText);
+                if (res.session_expired) {
+                    if (typeof alertas === 'function') alertas(res.msg || 'Sesión expirada. Redirigiendo...', 'warning');
+                    setTimeout(function () { window.location.href = base_url; }, 1500);
+                    return;
+                }
             const id_input = document.getElementById("id");
             const placa = document.getElementById("placa");
             const marca = document.getElementById("marca");
