@@ -21,6 +21,7 @@ const DT_LANG_ES = {
     oPaginate: { sFirst: "Primero", sLast: "Último", sNext: "Siguiente", sPrevious: "Anterior" },
     oAria: { sSortAscending: ": Activar para ordenar la columna de manera ascendente", sSortDescending: ": Activar para ordenar la columna de manera descendente" }
 };
+window.DT_LANG_ES = DT_LANG_ES;
 
 // Debounce para evitar múltiples llamadas simultáneas
 let debounceTimer = null;
@@ -1954,6 +1955,9 @@ function btnEditarVeh(id) {
 
             if (myModal) myModal.show();
             if (typeof SecuencialMantenimiento !== 'undefined') SecuencialMantenimiento.bindVehiculo(true);
+            } catch (err) {
+                console.error("Error al parsear o cargar datos del vehículo:", err);
+            }
         }
     }
 }
