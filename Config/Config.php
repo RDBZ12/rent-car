@@ -6,11 +6,12 @@ $protocol = $isHttps ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'] ?? '';
 
 if (!empty($host) && $host !== 'localhost' && $host !== '127.0.0.1') {
-    // Entorno en Vercel: Usar siempre la URL exacta desde la que accede el usuario
+    // En Vercel / Nube: usar SIEMPRE el dominio real desde el que accede el navegador
     $baseUrl = $protocol . $host . "/";
+} else if (getenv('BASE_URL')) {
+    $baseUrl = getenv('BASE_URL');
 } else {
-    // Entorno Local (XAMPP)
-    $baseUrl = getenv('BASE_URL') ?: "http://localhost/alquiler/";
+    $baseUrl = "http://localhost/alquiler/";
 }
 
 if (substr($baseUrl, -1) !== '/') {
