@@ -22,7 +22,7 @@
 <script src="<?php echo base_url; ?>Assets/js/validaciones-mantenimiento.js?v=1.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
-<script src="<?php echo base_url; ?>Assets/js/funciones.js?v=4.7"></script>
+<script src="<?php echo base_url; ?>Assets/js/funciones.js?v=4.8"></script>
 <script src="<?php echo base_url; ?>Assets/js/reservas.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/recepciones.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/penalidades.js?v=4.5"></script>
