@@ -49,7 +49,9 @@ function httpGetJsonCurl($url, $headers = []) {
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+    if (PHP_VERSION_ID < 80000) {
+        @curl_close($ch);
+    }
 
     if ($response === false || $httpCode < 200 || $httpCode >= 300) {
         return false;
@@ -177,7 +179,9 @@ function descargarBinarioCurl($url, $timeoutSeg = 18)
     ]);
     $data = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+    if (PHP_VERSION_ID < 80000) {
+        @curl_close($ch);
+    }
     if ($data === false || $code < 200 || $code >= 400) {
         return false;
     }
@@ -198,13 +202,13 @@ function resolverImagenVehiculo($marca, $modelo, $anio)
     }
     $nombre = $slug . '.jpg';
     $carpeta = dirname(__DIR__) . '/uploads/vehiculos/';
-    if (!is_dir($carpeta)) {
-        mkdir($carpeta, 0777, true);
+    if (!@is_dir($carpeta)) {
+        @mkdir($carpeta, 0777, true);
     }
     $rutaAbs = $carpeta . $nombre;
     $relPath = 'uploads/vehiculos/' . $nombre;
 
-    if (is_file($rutaAbs) && filesize($rutaAbs) > 0) {
+    if (@is_file($rutaAbs) && @filesize($rutaAbs) > 0) {
         return ['path' => $relPath, 'source' => 'local'];
     }
 
@@ -213,8 +217,12 @@ function resolverImagenVehiculo($marca, $modelo, $anio)
         $urlRemota = $resultado['full'];
         $contenido = descargarBinarioCurl($urlRemota, 20);
         if ($contenido !== false && strlen($contenido) > 0) {
-            file_put_contents($rutaAbs, $contenido);
-            return ['path' => $relPath, 'source' => 'api'];
+            if (@file_put_contents($rutaAbs, $contenido) !== false) {
+                return ['path' => $relPath, 'source' => 'api'];
+            } else {
+                // En Vercel Serverless (sistema de archivos de solo lectura), retornar la URL externa directamente
+                return ['path' => $urlRemota, 'source' => 'api'];
+            }
         }
     }
 

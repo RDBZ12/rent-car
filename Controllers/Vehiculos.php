@@ -215,6 +215,7 @@ class Vehiculos extends Controller
     }
     public function obtenerImagenApi()
     {
+        if (ob_get_length()) ob_clean();
         $modelo_id = intval($_POST['modelo']);
         $anio = strClean($_POST['anio']);
         $img = "default.png";
@@ -229,7 +230,9 @@ class Vehiculos extends Controller
 
                 if (!empty($resultado['path']) && $resultado['path'] !== 'default.png') {
                     $img = $resultado['path'];
-                    $url = base_url . $resultado['path'];
+                    $url = (strpos($resultado['path'], 'http://') === 0 || strpos($resultado['path'], 'https://') === 0)
+                        ? $resultado['path']
+                        : base_url . $resultado['path'];
                     $source = ($resultado['source'] === 'local')
                         ? 'Archivo local (misma marca/modelo/año)'
                         : 'API (descargada)';
@@ -262,6 +265,7 @@ class Vehiculos extends Controller
 
     public function obtenerImagenDirecta()
     {
+        if (ob_get_length()) ob_clean();
         $marca = strClean($_POST['marca'] ?? '');
         $modelo = strClean($_POST['modelo'] ?? '');
         $anio = strClean($_POST['anio'] ?? '');
@@ -274,9 +278,11 @@ class Vehiculos extends Controller
             $source = $res['source'];
         }
 
-        $full_url = ($img === 'default.png')
-            ? base_url . 'uploads/vehiculos/default.png'
-            : ((strpos($img, 'uploads/') === 0) ? base_url . $img : base_url . 'uploads/vehiculos/' . $img);
+        $full_url = (strpos($img, 'http://') === 0 || strpos($img, 'https://') === 0)
+            ? $img
+            : (($img === 'default.png')
+                ? base_url . 'uploads/vehiculos/default.png'
+                : ((strpos($img, 'uploads/') === 0) ? base_url . $img : base_url . 'uploads/vehiculos/' . $img));
         echo json_encode(['img' => $img, 'url' => $full_url, 'source' => $source], JSON_UNESCAPED_UNICODE);
         die();
     }
