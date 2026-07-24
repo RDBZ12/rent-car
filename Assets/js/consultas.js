@@ -16,9 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "estado_html" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 
@@ -38,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "estado_html" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 
@@ -72,9 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "estado_html" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 
@@ -96,9 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "nombre_feriado" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 });
@@ -185,9 +177,7 @@ function cargarHistorialCliente() {
             }
         ],
         responsive: true,
-        language: {
-            url: base_url + "Assets/js/es-ES.json"
-        },
+        language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" },
         order: [[0, "desc"]]
     });
 }

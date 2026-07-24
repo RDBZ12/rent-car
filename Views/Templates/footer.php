@@ -27,6 +27,8 @@
 <script src="<?php echo base_url; ?>Assets/js/recepciones.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/penalidades.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/pagos.js?v=4.5"></script>
+<script src="<?php echo base_url; ?>Assets/js/consultas.js?v=4.5"></script>
+<script src="<?php echo base_url; ?>Assets/js/reportes.js?v=4.5"></script>
 </body>
 
 </html>

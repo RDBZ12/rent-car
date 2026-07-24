@@ -17,9 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "cantidad" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 
@@ -36,9 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "total" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 
@@ -53,9 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "total" }
             ],
             responsive: true,
-            language: {
-                url: base_url + "Assets/js/es-ES.json"
-            }
+            language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
         });
     }
 });
@@ -81,9 +75,7 @@ function cargarIngresos() {
             { data: "ingresos" }
         ],
         responsive: true,
-        language: {
-            url: base_url + "Assets/js/es-ES.json"
-        }
+        language: typeof DT_LANG_ES !== 'undefined' ? DT_LANG_ES : { url: base_url + "Assets/js/es-ES.json" }
     });
 }
 
