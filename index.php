@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once 'Config/Config.php';
 if (!empty($_GET['url'])) {
     $ruta = $_GET['url'];

@@ -273,5 +273,3 @@ class Usuarios extends Controller{
         return (false !== filter_var($str, FILTER_VALIDATE_EMAIL));
     }
 }
-?>
-
