@@ -1,15 +1,9 @@
 <?php
 ob_start();
-if (session_status() === PHP_SESSION_NONE) {
-    if (is_dir('/tmp') && is_writable('/tmp')) {
-        @session_save_path('/tmp');
-    }
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.use_only_cookies', '1');
-    ini_set('session.cookie_path', '/');
-    session_start();
-}
 require_once 'Config/Config.php';
+require_once 'Config/Helpers.php';
+loadSessionFromCookie();
+register_shutdown_function('saveSessionCookie');
 if (!empty($_GET['url'])) {
     $ruta = $_GET['url'];
 } else {

@@ -324,4 +324,66 @@ function validarNumeroEnteroNoNegativo(string $v, int $max = 9999999): bool
     return $n >= 0 && $n <= $max;
 }
 
+function loadSessionFromCookie()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        if (is_dir('/tmp') && is_writable('/tmp')) {
+            @session_save_path('/tmp');
+        }
+        ini_set('session.cookie_httponly', '1');
+        ini_set('session.use_only_cookies', '1');
+        ini_set('session.cookie_path', '/');
+        session_start();
+    }
+    if (empty($_SESSION['activo']) && !empty($_COOKIE['RENT_CAR_SESS'])) {
+        $parts = explode('.', $_COOKIE['RENT_CAR_SESS'], 2);
+        if (count($parts) === 2) {
+            $json = base64_decode($parts[0]);
+            $sig  = $parts[1];
+            $secret = defined('DB_PASS') && !empty(DB_PASS) ? DB_PASS : 'rent_car_secure_key_2026';
+            $expectedSig = hash_hmac('sha256', $json, $secret);
+            if (hash_equals($expectedSig, $sig)) {
+                $data = json_decode($json, true);
+                if (is_array($data) && !empty($data['activo']) && isset($data['exp']) && $data['exp'] > time()) {
+                    $_SESSION['id_usuario'] = $data['id_usuario'];
+                    $_SESSION['usuario']    = $data['usuario'];
+                    $_SESSION['nombre']     = $data['nombre'];
+                    $_SESSION['apellido']   = $data['apellido'];
+                    $_SESSION['perfil']     = $data['perfil'] ?? 'default.png';
+                    $_SESSION['rol']        = $data['rol'] ?? '';
+                    $_SESSION['activo']     = true;
+                }
+            }
+        }
+    }
+}
+
+function saveSessionCookie()
+{
+    if (!empty($_SESSION['activo'])) {
+        $data = [
+            'id_usuario' => $_SESSION['id_usuario'] ?? null,
+            'usuario'    => $_SESSION['usuario'] ?? '',
+            'nombre'     => $_SESSION['nombre'] ?? '',
+            'apellido'   => $_SESSION['apellido'] ?? '',
+            'perfil'     => $_SESSION['perfil'] ?? 'default.png',
+            'rol'        => $_SESSION['rol'] ?? '',
+            'activo'     => true,
+            'exp'        => time() + 86400 * 7
+        ];
+        $json = json_encode($data);
+        $secret = defined('DB_PASS') && !empty(DB_PASS) ? DB_PASS : 'rent_car_secure_key_2026';
+        $sig = hash_hmac('sha256', $json, $secret);
+        $cookieVal = base64_encode($json) . '.' . $sig;
+        if (!headers_sent()) {
+            setcookie('RENT_CAR_SESS', $cookieVal, [
+                'expires'  => time() + 86400 * 7,
+                'path'     => '/',
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
+        }
+    }
+}
+
 ?>

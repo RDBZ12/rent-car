@@ -257,8 +257,16 @@ class Usuarios extends Controller{
     }
     public function salir()
     {
+        $_SESSION = array();
+        setcookie('RENT_CAR_SESS', '', [
+            'expires'  => time() - 3600,
+            'path'     => '/',
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
         session_destroy();
         header("location: " . base_url);
+        exit();
     }
     public function inactivos()
     {
