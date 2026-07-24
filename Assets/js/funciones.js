@@ -1952,7 +1952,20 @@ function btnEditarVeh(id) {
             if (anio) anio.value = res.anio;
             if (color) color.value = res.color;
             if (kilometraje) kilometraje.value = res.kilometraje_actual;
-            if (combustible) combustible.value = res.combustible_actual;
+            if (combustible) {
+                combustible.value = res.combustible_actual || "";
+                if (res.combustible_actual && combustible.selectedIndex <= 0) {
+                    const cVal = String(res.combustible_actual).toLowerCase().trim();
+                    for (let i = 0; i < combustible.options.length; i++) {
+                        const optVal = combustible.options[i].value.toLowerCase();
+                        const optTxt = combustible.options[i].text.toLowerCase();
+                        if (optVal && (optVal.includes(cVal) || cVal.includes(optVal) || optTxt.includes(cVal) || cVal.includes(optTxt))) {
+                            combustible.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
             if (precio) {
                 precio.value = res.precio;
                 document.getElementById("tipo_dia_hidden").value = res.tipo_dia_id || 1;
