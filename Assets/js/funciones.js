@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (document.getElementById('modalPrecio')) {
         m_precio = new bootstrap.Modal(document.getElementById('modalPrecio'));
+        document.getElementById('modalPrecio').addEventListener('hidden.bs.modal', function () {
+            const overlay = document.getElementById("backdropPrecioOverlay");
+            if (overlay) overlay.style.display = "none";
+        });
     }
     window.preciosPorTipoDia = {};
     window.ultimoTipoDiaSeleccionadoModal = null;
@@ -2684,10 +2688,15 @@ function abrirPrecioVehiculo() {
     document.getElementById("temp_precio").value = (window.preciosPorTipoDia[t_val] !== undefined) ? window.preciosPorTipoDia[t_val] : "";
     document.getElementById("estado_precio_modal").checked = (e_input.value === 'Activo');
     
+    const overlay = document.getElementById("backdropPrecioOverlay");
+    if (overlay) overlay.style.display = "block";
+
     if (m_precio) m_precio.show();
 }
 
 function cerrarPrecio() {
+    const overlay = document.getElementById("backdropPrecioOverlay");
+    if (overlay) overlay.style.display = "none";
     if (m_precio) m_precio.hide();
 }
 

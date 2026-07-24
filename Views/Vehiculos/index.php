@@ -188,10 +188,13 @@
     </div>
 </div>
 
+<!-- Overlay Oscuro Blur para Modal Secundario -->
+<div id="backdropPrecioOverlay" onclick="cerrarPrecio()" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 1065; display: none;"></div>
+
 <!-- Modal Secundario para Precio -->
 <div class="modal fade" id="modalPrecio" tabindex="-1" aria-labelledby="modalPrecioLabel" aria-hidden="true" style="z-index: 1070;">
     <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content shadow-2xl border-0 overflow-hidden" style="border-radius: 18px; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.45), 0 0 0 1000px rgba(15, 23, 42, 0.55) !important;">
+        <div class="modal-content border-0 overflow-hidden" style="border-radius: 20px; border: 3px solid #3b82f6 !important; box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.85), 0 0 35px rgba(59, 130, 246, 0.6) !important;">
             <!-- Dark Premium Header -->
             <div class="modal-header border-0 py-3 px-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
                 <div class="d-flex align-items-center">
