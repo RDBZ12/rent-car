@@ -4,9 +4,24 @@ class Vehiculos extends Controller
 {
     public function __construct()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            if (is_dir('/tmp') && is_writable('/tmp')) {
+                @session_save_path('/tmp');
+            }
+            ini_set('session.cookie_path', '/');
+            session_start();
+        }
         if (empty($_SESSION['activo'])) {
-            header("location: " . base_url);
+            $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') 
+                      || !empty($_POST) || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+            if ($isAjax) {
+                if (ob_get_length()) ob_clean();
+                echo json_encode(['status' => false, 'session_expired' => true, 'msg' => 'Sesión expirada. Por favor inicie sesión de nuevo.'], JSON_UNESCAPED_UNICODE);
+                die();
+            } else {
+                header("location: " . base_url);
+                exit();
+            }
         }
         parent::__construct();
     }

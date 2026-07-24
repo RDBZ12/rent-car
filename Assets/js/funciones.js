@@ -1696,9 +1696,23 @@ function ejecutarBusquedaImagen(modelo, anio, imgPreview, fotoActual, imgLoading
             console.log('Response status:', this.status, 'Body:', this.responseText);
 
             if (this.status == 200) {
+                const rawText = (this.responseText || '').trim();
+                if (rawText.startsWith('<')) {
+                    isSearching = false;
+                    console.warn('Respuesta HTML recibida (sesión expirada)');
+                    if (typeof alertas === 'function') alertas('Su sesión ha expirado. Redirigiendo...', 'warning');
+                    setTimeout(function () { window.location.href = base_url; }, 1500);
+                    return;
+                }
                 try {
-                    const res = JSON.parse(this.responseText);
+                    const res = JSON.parse(rawText);
                     console.log('Respuesta parseada:', res);
+
+                    if (res.session_expired) {
+                        if (typeof alertas === 'function') alertas(res.msg || 'Sesión expirada. Redirigiendo...', 'warning');
+                        setTimeout(function () { window.location.href = base_url; }, 1500);
+                        return;
+                    }
                     
                     if (imgPreview) {
                         const srcBanner = res.url
