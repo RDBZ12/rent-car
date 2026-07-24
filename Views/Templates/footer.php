@@ -24,7 +24,7 @@
 <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>
 <script src="<?php echo base_url; ?>Assets/js/funciones.js?v=4.9"></script>
 <script src="<?php echo base_url; ?>Assets/js/reservas.js?v=4.5"></script>
-<script src="<?php echo base_url; ?>Assets/js/recepciones.js?v=4.5"></script>
+<script src="<?php echo base_url; ?>Assets/js/recepciones.js?v=4.6"></script>
 <script src="<?php echo base_url; ?>Assets/js/penalidades.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/pagos.js?v=4.5"></script>
 <script src="<?php echo base_url; ?>Assets/js/consultas.js?v=4.5"></script>

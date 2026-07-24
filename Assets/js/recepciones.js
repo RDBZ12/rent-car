@@ -593,15 +593,36 @@ function recalcularSaldoFinal() {
     document.querySelectorAll(".x-cargo").forEach(i => t_ext += parseFloat(i.value) || 0);
     
     const total = t_alq + m_pen + t_ext;
-    const max = total - t_pag;
-    let abo = parseFloat(document.getElementById("abono_recepcion").value) || 0;
-    if (abo > max && max > 0) {
-        abo = max;
-        document.getElementById("abono_recepcion").value = max.toFixed(2);
-    }
-    
+    const maxPendiente = Math.max(0, total - t_pag);
+    const inputAbo = document.getElementById("abono_recepcion");
+
     document.getElementById("total_general_res").textContent = '$' + total.toFixed(2);
-    document.getElementById("saldo_final_res").textContent = '$' + (total - t_pag - abo).toFixed(2);
+
+    if (maxPendiente <= 0) {
+        if (inputAbo) {
+            inputAbo.value = "0.00";
+            inputAbo.disabled = true;
+            inputAbo.title = "La reserva está totalmente pagada";
+        }
+        document.getElementById("saldo_final_res").textContent = '$0.00';
+    } else {
+        if (inputAbo) {
+            inputAbo.disabled = false;
+            inputAbo.removeAttribute("title");
+            let abo = parseFloat(inputAbo.value) || 0;
+            if (abo > maxPendiente) {
+                abo = maxPendiente;
+                inputAbo.value = maxPendiente.toFixed(2);
+            } else if (abo < 0) {
+                abo = 0;
+                inputAbo.value = "0.00";
+            }
+            const saldoFinal = Math.max(0, maxPendiente - abo);
+            document.getElementById("saldo_final_res").textContent = '$' + saldoFinal.toFixed(2);
+        } else {
+            document.getElementById("saldo_final_res").textContent = '$' + maxPendiente.toFixed(2);
+        }
+    }
 }
 
 function registrarRecepcion(e) {
