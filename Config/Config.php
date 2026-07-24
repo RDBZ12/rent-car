@@ -1,15 +1,22 @@
 <?php
-$baseUrl = getenv('BASE_URL');
-if (!$baseUrl) {
-    if (getenv('VERCEL_URL')) {
-        $baseUrl = "https://" . getenv('VERCEL_URL') . "/";
-    } else {
-        $baseUrl = "http://localhost/alquiler/";
-    }
+// Autodetectar el protocolo y el host actual dinámicamente
+$isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
+           (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+$protocol = $isHttps ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'] ?? '';
+
+if (!empty($host) && $host !== 'localhost' && $host !== '127.0.0.1') {
+    // Entorno en Vercel: Usar siempre la URL exacta desde la que accede el usuario
+    $baseUrl = $protocol . $host . "/";
+} else {
+    // Entorno Local (XAMPP)
+    $baseUrl = getenv('BASE_URL') ?: "http://localhost/alquiler/";
 }
+
 if (substr($baseUrl, -1) !== '/') {
     $baseUrl .= '/';
 }
+
 $dbHost  = getenv('DB_HOST')  ? getenv('DB_HOST')  : "localhost";
 $dbUser  = getenv('DB_USER')  ? getenv('DB_USER')  : "root";
 $dbPass  = getenv('DB_PASS')  !== false ? getenv('DB_PASS')  : "";
