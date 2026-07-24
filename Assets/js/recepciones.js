@@ -241,7 +241,7 @@ function renderizarTablaReservas() {
         
         if (r.vehiculos && r.vehiculos.length > 0) {
             r.vehiculos.forEach(v => {
-                const img = v.imagen ? (base_url + (v.imagen.startsWith('uploads') ? v.imagen : 'uploads/vehiculos/' + v.imagen)) : (base_url + 'uploads/vehiculos/default.png');
+                const img = v.imagen ? (v.imagen.startsWith('http') ? v.imagen : (base_url + (v.imagen.startsWith('uploads') ? v.imagen : 'uploads/vehiculos/' + v.imagen))) : (base_url + 'uploads/vehiculos/default.png');
                 const vehSelected = seleccionGlobal.vehiculos[r.reserva_id] && seleccionGlobal.vehiculos[r.reserva_id].has(v.vehiculo_id.toString());
                 
                 html += `<div class="d-flex align-items-center border rounded p-2 bg-light shadow-sm position-relative" style="min-width: 250px;">

@@ -80,14 +80,16 @@ class Reportes extends Controller
 
     private function generarHtmlImagen($foto)
     {
-        $foto = ($foto == '') ? 'default.png' : $foto;
-        if (strpos($foto, 'uploads/') === 0) {
+        $foto = (empty($foto)) ? 'default.png' : $foto;
+        if (strpos($foto, 'http://') === 0 || strpos($foto, 'https://') === 0) {
+            $url_img = $foto;
+        } else if (strpos($foto, 'uploads/') === 0) {
             $url_img = base_url . $foto;
         } else {
             $url_img = base_url . "uploads/vehiculos/" . $foto;
         }
         return '<div class="d-flex justify-content-center">
-                    <img class="rounded-circle shadow-sm border border-2 border-white" src="' . $url_img . '" width="40" height="40" style="object-fit: cover;">
+                    <img class="rounded-circle shadow-sm border border-2 border-white" src="' . $url_img . '" width="40" height="40" style="object-fit: cover;" onerror="this.onerror=null;this.src=\'' . base_url . 'uploads/vehiculos/default.png\';">
                 </div>';
     }
 

@@ -1921,12 +1921,13 @@ function btnEditarVeh(id) {
                 }
             }
             if (img_preview) {
-                if (res.foto.startsWith('uploads/')) {
+                if (res.foto && (res.foto.startsWith('http://') || res.foto.startsWith('https://'))) {
+                    img_preview.src = res.foto;
+                } else if (res.foto && res.foto.startsWith('uploads/')) {
                     img_preview.src = base_url + res.foto;
-                } else if (res.foto == 'default.png') {
-                    img_preview.src = base_url + 'uploads/vehiculos/' + res.foto;
+                } else if (res.foto == 'default.png' || !res.foto) {
+                    img_preview.src = base_url + 'uploads/vehiculos/default.png';
                 } else {
-                    // Fallback for old files that weren't migrated if any (unlikely)
                     img_preview.src = base_url + 'uploads/vehiculos/' + res.foto;
                 }
             }

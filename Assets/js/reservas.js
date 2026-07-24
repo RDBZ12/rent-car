@@ -13,6 +13,7 @@ function urlImagenVeh(imagen) {
     const def = base_url + "uploads/vehiculos/default.png";
     if (!imagen || String(imagen).trim() === "") return def;
     const img = String(imagen).trim();
+    if (img.indexOf("http://") === 0 || img.indexOf("https://") === 0) return img;
     if (img.indexOf("uploads/") === 0) return base_url + img.replace(/^\//, "");
     return base_url + "uploads/vehiculos/" + img;
 }

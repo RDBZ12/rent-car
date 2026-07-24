@@ -329,7 +329,7 @@
             let html = '';
             if (data.length > 0) {
                 data.forEach(v => {
-                    const img = v.imagen ? base_url + 'uploads/vehiculos/' + v.imagen : base_url + 'uploads/vehiculos/default.png';
+                    const img = v.imagen ? (v.imagen.startsWith('http') ? v.imagen : (v.imagen.startsWith('uploads') ? base_url + v.imagen : base_url + 'uploads/vehiculos/' + v.imagen)) : base_url + 'uploads/vehiculos/default.png';
                     html += `
                         <div class="col-md-6 col-xl-4">
                             <div class="vehicle-item p-3 d-flex flex-column h-100" onclick="agregarVehiculo(${JSON.stringify(v).replace(/"/g, '&quot;')})">

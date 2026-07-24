@@ -49,13 +49,15 @@ class Vehiculos extends Controller
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['date'] = $date;
             $foto = ($data[$i]['foto'] == '') ? 'default.png' : $data[$i]['foto'];
-            if (strpos($foto, 'uploads/') === 0) {
+            if (strpos($foto, 'http://') === 0 || strpos($foto, 'https://') === 0) {
+                $url_img = $foto;
+            } else if (strpos($foto, 'uploads/') === 0) {
                 $url_img = base_url . $foto;
             } else {
                 $url_img = base_url . "uploads/vehiculos/" . $foto;
             }
             $data[$i]['imagen'] = '<div class="d-flex justify-content-center">
-                                    <img class="rounded-circle shadow-sm border border-2 border-white" src="' . $url_img . '" width="40" height="40" style="object-fit: cover;">
+                                    <img class="rounded-circle shadow-sm border border-2 border-white" src="' . $url_img . '" width="40" height="40" style="object-fit: cover;" onerror="this.onerror=null;this.src=\'' . base_url . 'uploads/vehiculos/default.png\';">
                                   </div>';
             $idVeh = (int) $data[$i]['id'];
             $est = $data[$i]['estado'];
