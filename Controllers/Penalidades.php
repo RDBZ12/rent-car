@@ -3,7 +3,7 @@ class Penalidades extends Controller
 {
     public function __construct()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         if (empty($_SESSION['activo'])) {
             header("location: " . base_url);
         }

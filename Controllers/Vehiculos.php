@@ -9,7 +9,7 @@ class Vehiculos extends Controller
                 @session_save_path('/tmp');
             }
             ini_set('session.cookie_path', '/');
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) { session_start(); }
         }
         if (empty($_SESSION['activo'])) {
             $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') 
