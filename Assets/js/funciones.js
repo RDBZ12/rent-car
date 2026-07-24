@@ -41,6 +41,30 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById('modalPrecio')) {
         m_precio = new bootstrap.Modal(document.getElementById('modalPrecio'));
     }
+    window.preciosPorTipoDia = {};
+    window.ultimoTipoDiaSeleccionadoModal = null;
+    const selectTipoDiaModal = document.getElementById('tipo_dia_modal');
+    if (selectTipoDiaModal) {
+        selectTipoDiaModal.addEventListener('change', function () {
+            const tempPrecioInput = document.getElementById('temp_precio');
+            const nuevoTipoDia = this.value;
+            if (window.ultimoTipoDiaSeleccionadoModal) {
+                if (tempPrecioInput && tempPrecioInput.value.trim() !== '') {
+                    window.preciosPorTipoDia[window.ultimoTipoDiaSeleccionadoModal] = tempPrecioInput.value;
+                } else {
+                    delete window.preciosPorTipoDia[window.ultimoTipoDiaSeleccionadoModal];
+                }
+            }
+            window.ultimoTipoDiaSeleccionadoModal = nuevoTipoDia;
+            if (tempPrecioInput) {
+                if (window.preciosPorTipoDia[nuevoTipoDia] !== undefined) {
+                    tempPrecioInput.value = window.preciosPorTipoDia[nuevoTipoDia];
+                } else {
+                    tempPrecioInput.value = '';
+                }
+            }
+        });
+    }
     // Toggle estado label dinámico
     const estadoCheck = document.getElementById('estado');
     if (estadoCheck) {
@@ -1599,6 +1623,8 @@ function frmVehiculo() {
     if (btnDeleteImg) btnDeleteImg.classList.add("d-none");
     
     // Reset Precio UI
+    window.preciosPorTipoDia = {};
+    window.ultimoTipoDiaSeleccionadoModal = null;
     document.getElementById("precio").value = "";
     document.getElementById("tipo_dia_hidden").value = "1";
     document.getElementById("estado_precio_hidden").value = "Activo";
@@ -1928,6 +1954,12 @@ function btnEditarVeh(id) {
                 document.getElementById("tipo_dia_hidden").value = res.tipo_dia_id || 1;
                 document.getElementById("estado_precio_hidden").value = res.estado_precio || 'Activo';
                 
+                window.preciosPorTipoDia = {};
+                if (res.tipo_dia_id && res.precio) {
+                    window.preciosPorTipoDia[res.tipo_dia_id] = res.precio;
+                }
+                window.ultimoTipoDiaSeleccionadoModal = String(res.tipo_dia_id || 1);
+
                 if (parseFloat(res.precio) > 0) {
                     document.getElementById("btnTextPrecio").textContent = "Cambiar Precio";
                     document.getElementById("precioBadge").classList.remove("d-none");
@@ -2638,8 +2670,18 @@ function abrirPrecioVehiculo() {
     const t_input = document.getElementById("tipo_dia_hidden");
     const e_input = document.getElementById("estado_precio_hidden");
     
-    document.getElementById("temp_precio").value = p_input.value;
-    document.getElementById("tipo_dia_modal").value = t_input.value;
+    if (!window.preciosPorTipoDia) window.preciosPorTipoDia = {};
+
+    const t_val = String(t_input.value || "1");
+    const p_val = p_input.value || "";
+
+    if (p_val !== "") {
+        window.preciosPorTipoDia[t_val] = p_val;
+    }
+
+    window.ultimoTipoDiaSeleccionadoModal = t_val;
+    document.getElementById("tipo_dia_modal").value = t_val;
+    document.getElementById("temp_precio").value = (window.preciosPorTipoDia[t_val] !== undefined) ? window.preciosPorTipoDia[t_val] : "";
     document.getElementById("estado_precio_modal").checked = (e_input.value === 'Activo');
     
     if (m_precio) m_precio.show();
