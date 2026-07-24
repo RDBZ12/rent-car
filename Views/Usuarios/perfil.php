@@ -22,8 +22,8 @@
             </div>
             
             <div class="card-body p-4 pt-4 text-center">
-                <h3 class="fw-bold text-dark mb-1"><?php echo (string)$data['nombre'] . ' ' . (string)$data['apellido']; ?></h3>
-                <p class="text-muted mb-4">@<?php echo (string)$data['usuario']; ?> • Administrador</p>
+                <h3 class="fw-bold text-dark mb-1"><?php echo (string)($data['nombre'] ?? '') . ' ' . (string)($data['apellido'] ?? ''); ?></h3>
+                <p class="text-muted mb-4">@<?php echo (string)($data['usuario'] ?? ''); ?> • Administrador</p>
                 
                 <div class="list-group list-group-flush text-start border-top pt-3">
                     <div class="list-group-item bg-transparent border-0 px-0 py-3">
@@ -33,7 +33,7 @@
                             </div>
                             <div>
                                 <small class="text-muted d-block fw-medium text-uppercase" style="font-size: 0.65rem;">Correo Electrónico</small>
-                                <span class="text-dark fw-semibold"><?php echo (string)$data['correo']; ?></span>
+                                <span class="text-dark fw-semibold"><?php echo !empty($data['correo']) ? (string)$data['correo'] : 'Sin registrar'; ?></span>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             </div>
                             <div>
                                 <small class="text-muted d-block fw-medium text-uppercase" style="font-size: 0.65rem;">Teléfono de Contacto</small>
-                                <span class="text-dark fw-semibold"><?php echo (string)$data['telefono']; ?></span>
+                                <span class="text-dark fw-semibold"><?php echo !empty($data['telefono']) ? (string)$data['telefono'] : 'Sin registrar'; ?></span>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             </div>
                             <div>
                                 <small class="text-muted d-block fw-medium text-uppercase" style="font-size: 0.65rem;">Fecha de Registro</small>
-                                <span class="text-dark fw-semibold"><?php echo date('d M, Y', strtotime((string)$data['fecha'])); ?></span>
+                                <span class="text-dark fw-semibold"><?php echo !empty($data['fecha']) ? date('d M, Y', strtotime((string)$data['fecha'])) : date('d M, Y'); ?></span>
                             </div>
                         </div>
                     </div>
@@ -75,31 +75,31 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="usuario_form" class="form-label fw-semibold text-muted small">Nombre de Usuario</label>
-                            <input id="usuario_form" class="form-control shadow-none border-light bg-light" type="text" name="usuario" value="<?php echo (string)$data['usuario'] ?>" required>
+                            <input id="usuario_form" class="form-control shadow-none border-light bg-light" type="text" name="usuario" value="<?php echo (string)($data['usuario'] ?? '') ?>" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nombre_form" class="form-label fw-semibold text-muted small">Nombre(s)</label>
-                            <input id="nombre_form" class="form-control shadow-none" type="text" name="nombre" value="<?php echo (string)$data['nombre'] ?>" required>
+                            <input id="nombre_form" class="form-control shadow-none" type="text" name="nombre" value="<?php echo (string)($data['nombre'] ?? '') ?>" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="apellido_form" class="form-label fw-semibold text-muted small">Apellidos</label>
-                            <input id="apellido_form" class="form-control shadow-none" type="text" name="apellido" value="<?php echo (string)$data['apellido'] ?>" required>
+                            <input id="apellido_form" class="form-control shadow-none" type="text" name="apellido" value="<?php echo (string)($data['apellido'] ?? '') ?>" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="correo_form" class="form-label fw-semibold text-muted small">Correo Electrónico</label>
-                            <input id="correo_form" class="form-control shadow-none" type="email" name="correo" value="<?php echo (string)$data['correo'] ?>" required>
+                            <input id="correo_form" class="form-control shadow-none" type="email" name="correo" value="<?php echo (string)($data['correo'] ?? '') ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="telefono_form" class="form-label fw-semibold text-muted small">Teléfono</label>
-                            <input id="telefono_form" class="form-control shadow-none" type="text" name="telefono" value="<?php echo (string)$data['telefono'] ?>" required>
+                            <input id="telefono_form" class="form-control shadow-none" type="text" name="telefono" value="<?php echo (string)($data['telefono'] ?? '') ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="direccion_form" class="form-label fw-semibold text-muted small">Dirección</label>
-                            <input id="direccion_form" class="form-control shadow-none" type="text" name="direccion" value="<?php echo (string)$data['direccion'] ?>" required>
+                            <input id="direccion_form" class="form-control shadow-none" type="text" name="direccion" value="<?php echo (string)($data['direccion'] ?? '') ?>">
                         </div>
                         <div class="col-md-12 d-none">
                             <input id="imagen" type="file" onchange="preview(event)" name="imagen">
-                            <input type="hidden" name="foto_actual" value="<?php echo (string)$data['perfil'] ?>">
+                            <input type="hidden" name="foto_actual" value="<?php echo (string)($data['perfil'] ?? '') ?>">
                         </div>
                     </div>
                     <div class="mt-2 text-end">
@@ -142,4 +142,4 @@
     </div>
 </div>
 
-<?php include "Views/Templates/header.php"; ?>
+<?php include "Views/Templates/footer.php"; ?>
